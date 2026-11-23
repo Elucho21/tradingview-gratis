@@ -331,6 +331,8 @@ export class ChartController {
   resetView() {
     const n = this.display.length;
     if (!n) return;
+    // If the chart has no size yet (hidden tab/pane), redo the framing once it gets one.
+    this.pendingReset = this.el.clientWidth === 0;
     this.chart.timeScale().applyOptions({ barSpacing: 7, rightOffset: 8 });
     this.chart.timeScale().setVisibleLogicalRange({ from: Math.max(0, n - 150), to: n + 8 });
     this.chart.priceScale('right').applyOptions({ autoScale: true });
@@ -1014,7 +1016,9 @@ export class ChartController {
     this.canvas.style.width = `${w}px`;
     this.canvas.style.height = `${h}px`;
     this.lastSig = '';
+    if (this.pendingReset && w > 0) requestAnimationFrame(() => this.resetView());
   }
+  private pendingReset = false;
 
   private loop = () => {
     if (this.destroyed) return;
