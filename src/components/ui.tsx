@@ -108,7 +108,7 @@ export function SymbolIcon({ symbol, size = 20 }: { symbol: string; size?: numbe
 export function fmtPrice(p: number | null | undefined, ref?: number) {
   if (p === null || p === undefined || !isFinite(p)) return '—';
   const r = ref ?? p;
-  const prec = r >= 100 ? 2 : r >= 1 ? 4 : Math.min(10, Math.max(4, Math.ceil(-Math.log10(Math.abs(r) || 1)) + 3));
+  const prec = r >= 10 ? 2 : r >= 1 ? 4 : Math.min(10, Math.max(4, Math.ceil(-Math.log10(Math.abs(r) || 1)) + 3));
   return p.toLocaleString('en-US', { minimumFractionDigits: prec, maximumFractionDigits: prec });
 }
 

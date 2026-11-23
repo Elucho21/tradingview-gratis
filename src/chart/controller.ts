@@ -46,7 +46,7 @@ interface IndicatorRuntime {
 
 function precisionFor(p: number) {
   if (!isFinite(p) || p <= 0) return 2;
-  if (p >= 100) return 2;
+  if (p >= 10) return 2;
   if (p >= 1) return 4;
   return Math.min(10, Math.max(4, Math.ceil(-Math.log10(p)) + 3));
 }
